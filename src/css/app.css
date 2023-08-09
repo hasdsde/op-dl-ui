@@ -1,0 +1,10 @@
+/* app global css */
+@font-face {
+    font-family: op-font;
+    src: url(./fonts/zh-cn.woff);
+}
+
+.op-font {
+    font-family: op-font, serif;
+    src: url(./fonts/zh-cn.woff);
+}
