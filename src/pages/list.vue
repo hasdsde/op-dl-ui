@@ -1,17 +1,18 @@
 <template>
     <div class="q-pa-md q-gutter-sm">
-        <q-banner class="bg-primary text-white">
-            这是todo页面
-            <template v-slot:action>
-                <q-btn flat color="white" label="Dismiss"/>
-                <q-btn flat color="white" label="Update Credit Card"/>
-            </template>
-        </q-banner>
+        <div>
+            <version-card/>
+        </div>
+        <div>
+            <event-card/>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 
+import VersionCard from "components/VersionCard.vue";
+import EventCard from "components/eventCard.vue";
 </script>
 
 <style scoped>

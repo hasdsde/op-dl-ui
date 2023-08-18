@@ -1,7 +1,7 @@
 <template>
     <div class="q-pa-md q-gutter-sm">
         <q-banner class="bg-primary text-white">
-            这是user页面
+            这玩意有必要登录吗
             <template v-slot:action>
                 <q-btn flat color="white" label="Dismiss"/>
                 <q-btn flat color="white" label="Update Credit Card"/>
