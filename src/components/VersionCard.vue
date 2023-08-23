@@ -62,7 +62,9 @@
                     <div v-for="pool in pools">
                         <PoolCard :pool="pool" class="no-shadow"/>
                     </div>
-                    <event-card/>
+                    <div v-for="versionEvent in versionEvents">
+                        <event-card :versionEvent="versionEvent" class="no-shadow"/>
+                    </div>
                 </q-expansion-item>
             </div>
         </q-card-actions>
@@ -87,20 +89,22 @@ let versionLeftTime: any = ref("undefined") //版本剩余时间
 let versionLeftLine: any = ref(0) //版本进度条数字
 
 let pools: any = ref([])
+let versionEvents: any = ref([])
 loadPage()
 
 function loadPage() {
     checkExpand()//展开设置
     getCurrentVersion()//获取当前版本信息
     getPools()
+    getEvents()
 }
 
 
 function getCurrentVersion() {
     $q.loading.show({
-        message: 'Doing something. Please wait...',
+        message: '加载主界面',
         boxClass: 'bg-grey-2 text-grey-9',
-        spinnerColor: 'primary'
+        spinnerColor: 'primary',
     })
 
     api.get("/current-version-with-tag").then((res: any) => {
@@ -116,6 +120,12 @@ function getCurrentVersion() {
 function getPools() {
     api.get("/current-pool-with-tag").then((res: any) => {
         pools.value = res.data.Data
+    })
+}
+
+function getEvents() {
+    api.get("/current-version-event-with-tag").then((res: any) => {
+        versionEvents.value = res.data.Data
     })
 }
 

@@ -15,19 +15,22 @@
                 </q-item-section>
                 <q-item-section>
                     <q-item-label>
-                        <q-badge class="float-left q-mr-xs">新区域</q-badge>
-                        <span class=" q-pr-md">新的地区</span>
+                        <div v-for="tag in versionEvent.versionEventTag">
+                            <q-badge class="float-left q-mr-xs" :label="tag.tag.name"/>
+                        </div>
+                        <span class=" q-pr-md">{{ versionEvent.title }}</span>
                     </q-item-label>
-                    <q-item-label caption>
-                        水深
-                    </q-item-label>
+                    <!--                    <q-item-label caption>-->
+                    <!--                        {{ versionEvent.content }}-->
+                    <!--                    </q-item-label>-->
                 </q-item-section>
-                <q-item-section side top>
-                    <q-item-label caption style="width: 50px" class="text-right">
-                        无限制
-                    </q-item-label>
-                    <q-linear-progress :value="0.4" size="10px" class="q-mt-md"/>
-                </q-item-section>
+                <!--                <q-item-section side top>-->
+                <!--                    <q-item-label caption style="width: 60px" class="text-right">-->
+                <!--                        {{ getVersionLeftTime(versionEvent.endTime) }}-->
+                <!--                    </q-item-label>-->
+                <!--                    <q-linear-progress :value="getVersionLeftLine(versionEvent.startTime, versionEvent.endTime)"-->
+                <!--                                       size="10px" class="q-mt-md"/>-->
+                <!--                </q-item-section>-->
             </q-item>
         </q-card-section>
     </q-card>
@@ -36,6 +39,11 @@
 <script lang="ts" setup>
 
 import {DialogConfirm} from "components/commonResults";
+import {ref} from "vue";
+
+const prop = defineProps(['versionEvent'])
+const versionEvent = ref(prop.versionEvent)
+console.log(versionEvent)
 
 function testShow() {
     DialogConfirm("确定要删除吗?").onOk(() => {
