@@ -35,7 +35,8 @@
         </q-page-container>
 
         <q-footer class="shadow-1">
-            <Footer/>
+            <!--      目前用不到的      -->
+            <!-- <Footer/>-->
         </q-footer>
     </q-layout>
 </template>
@@ -45,7 +46,6 @@ import {ref, watch} from 'vue';
 import {menu, MenuItems} from "components/models";
 import {useRouter} from "vue-router/dist/vue-router";
 import Aside from "components/Aside.vue";
-import Footer from "components/Footer.vue";
 
 const $router = useRouter()
 //从其他文件获取的菜单

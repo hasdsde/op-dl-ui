@@ -4,13 +4,13 @@
             <div class="row items-center no-wrap">
                 <div class="col">
                     <div class="text-h5 text-primary">
-                        仿若无因飘落的轻雨
+                        {{ version.title }}
                         <q-badge outline align="top" color="blue">
-                            V4.0
+                            V{{ versionNum }}
                         </q-badge>
                     </div>
                     <div class="text-subtitle3 text-grey">
-                        08/16-09/27 (40天3小时)
+                        {{ versionTime }}
                     </div>
                     <div></div>
                 </div>
@@ -26,6 +26,7 @@
                                             color="green"
                                             unchecked-icon="clear"
                                             label="自动展开"
+                                            @click="handleExpand"
                                     />
                                 </q-item>
                                 <q-item clickable>
@@ -49,8 +50,9 @@
                         <q-item-section>
                             进度:20%
                             <div class="row items-center">
-                                <q-badge class="q-mr-sm" color="blue" label="新地图"/>
-                                <q-badge class="q-mr-sm" color="orange" label="新角色"/>
+                                <div v-for="tag in version.versionTag">
+                                    <q-badge class="q-mr-sm" :color="tag.tag.icon" :label="tag.tag.name"/>
+                                </div>
                             </div>
                             <q-linear-progress stripe rounded size="5px" :value="0.3" color="warning" class="q-mt-sm"/>
                         </q-item-section>
@@ -68,10 +70,52 @@
 import {ref} from "vue";
 import PoolCard from "components/poolCard.vue";
 import EventCard from "components/versionEventCard.vue";
+import {api} from "boot/axios";
+import {getVersionNum, getVersionTime} from "components/version";
 
-const versionExpanded = ref(false)
-const autoExpanded = ref(false)
+const versionExpanded: any = ref(false)//版本自动展开
+const autoExpanded: any = ref(false)//自动展开
+let version = ref({}) //版本信息
+let versionTime = ref("Undefined")
+let versionNum = ref("1")
+loadPage()
 
+function loadPage() {
+    checkExpand()
+    getCurrentVersion()
+}
+
+
+function getCurrentVersion() {
+    api.get("/current-version-with-tag").then((res: any) => {
+        version.value = res.data.Data[0]
+        versionTime.value = getVersionTime(version.value.startTime, version.value.endTime)
+        versionNum.value = getVersionNum(version.value.num)
+    })
+}
+
+
+//自动展开判断
+function checkExpand() {
+    if (localStorage.getItem("cardAutoExpanded") != "1") {
+        autoExpanded.value = false
+        localStorage.setItem("cardAutoExpanded", "0")
+    } else {
+        autoExpanded.value = true
+        versionExpanded.value = true
+    }
+}
+
+
+//自动展开
+function handleExpand() {
+    if (autoExpanded.value) {
+        localStorage.setItem("cardAutoExpanded", "1");
+        versionExpanded.value = true
+    } else {
+        localStorage.setItem("cardAutoExpanded", "0");
+    }
+}
 </script>
 <style scoped>
 

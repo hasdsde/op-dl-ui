@@ -32,14 +32,14 @@ export default boot(({app}) => {
 
 
     // 请求拦截器
-    api.interceptors.request.use((config) => {
-        if (localStorage.getItem('token') == null) {
-            window.location.href = "/#/login"
-        } else {
-            config.headers['token'] = localStorage.getItem('token')
-        }
-        return config;
-    })
+    // api.interceptors.request.use((config) => {
+    //     if (localStorage.getItem('token') == null) {
+    //         window.location.href = "/#/login"
+    //     } else {
+    //         config.headers['token'] = localStorage.getItem('token')
+    //     }
+    //     return config;
+    // })
 
     api.interceptors.response.use(res => {
         if (res.data.code == "499") {

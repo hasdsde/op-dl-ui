@@ -1,10 +1,9 @@
 <template>
     <div class="q-pa-md q-gutter-sm">
         <q-banner class="bg-primary text-white">
-            这玩意有必要登录吗
+            本地账户，无需登录
             <template v-slot:action>
-                <q-btn flat color="white" label="Dismiss"/>
-                <q-btn flat color="white" label="Update Credit Card"/>
+                <q-btn flat color="white" label="OK"/>
             </template>
         </q-banner>
     </div>
