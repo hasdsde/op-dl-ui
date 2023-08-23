@@ -3,16 +3,15 @@
         <q-card-section class="q-pb-sm">
             <div class="row items-center no-wrap">
                 <div class="col">
-                    <div class="text-h5 text-primary">
+                    <div class="text-h5" :class="'text-'+version.img">
                         {{ version.title }}
-                        <q-badge outline align="top" color="blue">
-                            V{{ versionNum }}
+                        <q-badge outline align="top" :color="version.img">
+                            {{ versionNum }}
                         </q-badge>
                     </div>
                     <div class="text-subtitle3 text-grey">
-                        {{ versionTime }}
+                        {{ versionTime }} ({{ versionLeftTime }})
                     </div>
-                    <div></div>
                 </div>
 
                 <div class="col-auto">
@@ -48,17 +47,21 @@
                         </q-item-section>
 
                         <q-item-section>
-                            进度:20%
+                            <div>
+                                版本要点:5
+                            </div>
                             <div class="row items-center">
                                 <div v-for="tag in version.versionTag">
                                     <q-badge class="q-mr-sm" :color="tag.tag.icon" :label="tag.tag.name"/>
                                 </div>
                             </div>
-                            <q-linear-progress stripe rounded size="5px" :value="0.3" color="warning" class="q-mt-sm"/>
+                            <q-linear-progress stripe rounded size="5px" :value="versionLeftLine" :color="version.img"
+                                               class="q-mt-sm"/>
                         </q-item-section>
                     </template>
-                    <PoolCard/>
-                    <PoolCard/>
+                    <div v-for="pool in pools">
+                        <PoolCard :pool="pool" class="no-shadow"/>
+                    </div>
                     <event-card/>
                 </q-expansion-item>
             </div>
@@ -71,29 +74,50 @@ import {ref} from "vue";
 import PoolCard from "components/poolCard.vue";
 import EventCard from "components/versionEventCard.vue";
 import {api} from "boot/axios";
-import {getVersionNum, getVersionTime} from "components/version";
+import {getVersionLeftLine, getVersionLeftTime, getVersionNum, getVersionTime} from "components/version";
+import {useQuasar} from "quasar";
 
+const $q = useQuasar()
 const versionExpanded: any = ref(false)//版本自动展开
 const autoExpanded: any = ref(false)//自动展开
-let version = ref({}) //版本信息
-let versionTime = ref("Undefined")
-let versionNum = ref("1")
+let version: any = ref({}) //版本信息
+let versionTime: any = ref("Undefined")//版本开始和结束时间
+let versionNum: any = ref("undefined")//版本号
+let versionLeftTime: any = ref("undefined") //版本剩余时间
+let versionLeftLine: any = ref(0) //版本进度条数字
+
+let pools: any = ref([])
 loadPage()
 
 function loadPage() {
-    checkExpand()
-    getCurrentVersion()
+    checkExpand()//展开设置
+    getCurrentVersion()//获取当前版本信息
+    getPools()
 }
 
 
 function getCurrentVersion() {
+    $q.loading.show({
+        message: 'Doing something. Please wait...',
+        boxClass: 'bg-grey-2 text-grey-9',
+        spinnerColor: 'primary'
+    })
+
     api.get("/current-version-with-tag").then((res: any) => {
         version.value = res.data.Data[0]
         versionTime.value = getVersionTime(version.value.startTime, version.value.endTime)
+        versionLeftTime.value = getVersionLeftTime(version.value.endTime)
         versionNum.value = getVersionNum(version.value.num)
+        versionLeftLine.value = getVersionLeftLine(version.value.startTime, version.value.endTime)
+        $q.loading.hide()
     })
 }
 
+function getPools() {
+    api.get("/current-pool-with-tag").then((res: any) => {
+        pools.value = res.data.Data
+    })
+}
 
 //自动展开判断
 function checkExpand() {

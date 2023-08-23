@@ -9,19 +9,20 @@
                 </q-item-section>
                 <q-item-section>
                     <q-item-label>
-                        <span class="text-red q-pr-sm">角色1(火)</span>
-                        <span class="text-primary  q-pr-sm">角色2(水)</span>
+                        <span class=" q-pr-sm" :class="'text-'+pool.img">{{ pool.name }}</span>
                         <!-- <q-badge class="float-left ">新角色</q-badge>-->
                     </q-item-label>
                     <q-item-label caption>
-                        一些，四星，角色
+                        {{ pool.other }}
                     </q-item-label>
                 </q-item-section>
                 <q-item-section side top>
                     <q-item-label caption style="width: 50px" class="text-right">
-                        14天3时
+                        {{ getVersionLeftTime(pool.endTime) }}
                     </q-item-label>
-                    <q-linear-progress :value="0.4" size="10px" class="q-mt-md"/>
+                    <q-linear-progress :value="getVersionLeftLine(pool.startTime,pool.endTime)" color="primary"
+                                       size="7px"
+                                       class="q-mt-md"/>
                 </q-item-section>
             </q-item>
         </q-card-section>
@@ -29,7 +30,11 @@
 </template>
 
 <script lang="ts" setup>
+import {ref} from "vue";
+import {getVersionLeftLine, getVersionLeftTime} from "components/version";
 
+const props: any = defineProps(['pool'])
+const pool: any = ref(props.pool)
 </script>
 
 <style scoped>

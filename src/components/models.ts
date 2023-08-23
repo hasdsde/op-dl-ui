@@ -1,14 +1,5 @@
 import {ref} from "vue";
 
-export interface Todo {
-    id: number;
-    content: string;
-}
-
-export interface Meta {
-    totalCount: number;
-}
-
 // 菜单数据
 export let menu = ref([
     {link: 'todo', icon: 'task_alt', desc: '列表', id: 1,},
