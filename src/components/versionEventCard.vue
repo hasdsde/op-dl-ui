@@ -10,14 +10,15 @@
             <q-item clickable v-ripple dense>
                 <q-item-section avatar>
                     <q-avatar font-size="10px">
-                        <q-avatar icon="motion_photos_on" :color="'primary'" size="md" text-color="white"/>
+                        <q-avatar icon="motion_photos_on" :color="versionEvent.versionEventTag[0].tag.icon"
+                                  size="md" text-color="white"/>
                     </q-avatar>
                 </q-item-section>
                 <q-item-section>
                     <q-item-label>
                         <div v-for="tag in versionEvent.versionEventTag">
                             <span class="q-pr-md">{{ versionEvent.title }}</span>
-                            <q-badge class="float-left q-mr-sm" :label="tag.tag.name"/>
+                            <q-badge class="float-left q-mr-sm" :label="tag.tag.name" :color="tag.tag.icon"/>
                         </div>
                     </q-item-label>
                     <q-item-label caption v-if="versionEvent.content">

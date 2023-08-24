@@ -8,7 +8,9 @@
                 <q-item-section>
                     <q-item-label>
                         <span class=" q-pr-sm" :class="'text-'+pool.img">{{ pool.name }}</span>
-                        <!-- <q-badge class="float-left ">新角色</q-badge>-->
+                        <div v-for="tag in pool.poolTag" class="float-left">
+                            <q-badge class="float-left" :label="tag.tag.name" :color="tag.tag.icon"/>
+                        </div>
                     </q-item-label>
                     <q-item-label caption>
                         {{ pool.other }}
