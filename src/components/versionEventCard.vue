@@ -6,23 +6,23 @@
                 @before-show="testShow"
         >
         </q-menu>
-        <q-card-section class="q-pt-xs q-pb-none">
-            <q-item clickable v-ripple>
+        <q-card-section class="q-pt-xs q-pb-none ">
+            <q-item clickable v-ripple dense>
                 <q-item-section avatar>
-                    <q-avatar rounded size="32px" font-size="20px">
-                        <img src="src/assets/icon/map.webp"/>
+                    <q-avatar font-size="10px">
+                        <q-avatar icon="motion_photos_on" :color="'primary'" size="md" text-color="white"/>
                     </q-avatar>
                 </q-item-section>
                 <q-item-section>
                     <q-item-label>
                         <div v-for="tag in versionEvent.versionEventTag">
-                            <q-badge class="float-left q-mr-xs" :label="tag.tag.name"/>
+                            <span class="q-pr-md">{{ versionEvent.title }}</span>
+                            <q-badge class="float-left q-mr-sm" :label="tag.tag.name"/>
                         </div>
-                        <span class=" q-pr-md">{{ versionEvent.title }}</span>
                     </q-item-label>
-                    <!--                    <q-item-label caption>-->
-                    <!--                        {{ versionEvent.content }}-->
-                    <!--                    </q-item-label>-->
+                    <q-item-label caption v-if="versionEvent.content">
+                        {{ versionEvent.content }}
+                    </q-item-label>
                 </q-item-section>
                 <!--                <q-item-section side top>-->
                 <!--                    <q-item-label caption style="width: 60px" class="text-right">-->

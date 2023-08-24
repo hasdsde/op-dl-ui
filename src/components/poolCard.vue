@@ -3,9 +3,7 @@
         <q-card-section class="q-pt-xs q-pb-none">
             <q-item clickable v-ripple>
                 <q-item-section avatar>
-                    <q-avatar size="32px" font-size="20px">
-                        <img src="src/assets/icon/wish.png"/>
-                    </q-avatar>
+                    <q-avatar icon="token" :color="pool.img" size="lg" text-color="white"/>
                 </q-item-section>
                 <q-item-section>
                     <q-item-label>
@@ -17,7 +15,7 @@
                     </q-item-label>
                 </q-item-section>
                 <q-item-section side top>
-                    <q-item-label caption style="width: 50px" class="text-right">
+                    <q-item-label caption class="text-right">
                         {{ getVersionLeftTime(pool.endTime) }}
                     </q-item-label>
                     <q-linear-progress :value="getVersionLeftLine(pool.startTime,pool.endTime)" color="primary"
