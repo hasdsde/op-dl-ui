@@ -10,12 +10,32 @@ export function getVersionTime(startTime: any, endTime: any): string {
     return startTime + "-" + endTime
 }
 
+
 //根据截至时间计算剩余时间
 export function getVersionLeftTime(endTime: any): string {
     let hour = date.getDateDiff(endTime, Date.now(), "hours");
     hour = decreaseTime(hour)
+    if (hour < 0) {
+        return "已结束"
+    }
     const diffDay = Math.floor(hour / 24);
     const diffHour = Math.floor(hour % 24);
+    return diffDay + "天" + diffHour + "时"
+}
+
+//根据截至时间计算剩余时间
+export function getEventLeftTime(startTime: any, endTime: any): string {
+    let hour = date.getDateDiff(endTime, Date.now(), "hours");
+    hour = decreaseTime(hour)
+
+    const diffDay = Math.floor(hour / 24);
+    const diffHour = Math.floor(hour % 24);
+    if (date.getDateDiff(startTime, Date.now(), "hours") > 0) {
+        return "未开始(" + diffHour + "时)"
+    }
+    if (hour < 0) {
+        return "已结束";
+    }
     return diffDay + "天" + diffHour + "时"
 }
 

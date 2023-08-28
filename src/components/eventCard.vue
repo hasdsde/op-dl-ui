@@ -12,7 +12,7 @@
               <q-badge class="q-mr-sm vertical-top" :color="tag.tag.icon" outline :label="tag.tag.name"/>
             </span>
             <div class="text-subtitle3 float-right vertical-bottom text-grey ">
-              <span class="text-subtitle2">{{ getVersionLeftTime(event.event.endTime) }}</span>
+              <span class="text-subtitle2">{{ getEventLeftTime(event.event.startTime, event.event.endTime) }}</span>
             </div>
           </div>
 
@@ -47,21 +47,19 @@
         <q-expansion-item icon="explore" v-model="versionExpanded">
           <template v-slot:header>
             <q-item-section avatar>
-              <q-avatar color="black" text-color="black">
-                <img src="src/assets/icon/xunbao.webp" alt="">
-              </q-avatar>
+              <q-avatar icon="explore" color="black" text-color="white"/>
             </q-item-section>
 
             <q-item-section>
               进度:30%
               <div class="row items-center">
-                <q-badge class="q-mr-sm" color="blue" label="原石:300"/>
-                <q-badge class="q-mr-sm" color="orange" label="经验书:2"/>
+                <q-badge class="q-mr-sm" color="blue" :label="'原石：'+event.event.primogems"/>
+                <q-badge class="q-mr-sm" color="orange" :label="event.event.award"/>
               </div>
               <q-linear-progress stripe rounded size="5px" :value="0.3" color="warning" class="q-mt-sm"/>
             </q-item-section>
           </template>
-          <event-detail/>
+          <event-detail v-for="detail in event.event.eventDetail" :detail="detail"/>
         </q-expansion-item>
       </div>
     </q-card-actions>
@@ -72,11 +70,12 @@
 
 import EventDetail from "components/eventDetail.vue";
 import {ref} from "vue";
-import {getVersionLeftTime} from "./version";
+import {getEventLeftTime} from "./version";
 
 const event: any = defineProps(['event']);
 const versionExpanded = ref(false)
 const autoExpanded = ref(false)
+
 </script>
 <style scoped>
 
