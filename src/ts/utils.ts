@@ -1,6 +1,6 @@
 import {toRaw} from "vue";
 import {useQuasar} from "quasar";
-import {CommonFail, CommonSuccess} from "components/commonResults";
+import {CommonFail, CommonSuccess} from "src/ts/commonResults";
 import {useRouter} from "vue-router";
 
 const $q = useQuasar()

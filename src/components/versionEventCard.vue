@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 
-import {DialogConfirm} from "components/commonResults";
+import {DialogConfirm} from "src/ts/commonResults";
 import {ref} from "vue";
 
 const prop = defineProps(['versionEvent'])

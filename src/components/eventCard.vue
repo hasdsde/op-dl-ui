@@ -70,7 +70,7 @@
 
 import EventDetail from "components/eventDetail.vue";
 import {ref} from "vue";
-import {getEventLeftTime} from "./version";
+import {getEventLeftTime} from "../ts/version";
 
 const event: any = defineProps(['event']);
 const versionExpanded = ref(false)

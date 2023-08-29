@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import {ref, watch} from 'vue';
-import {menu, MenuItems} from "components/models";
+import {menu, MenuItems} from "src/ts/models";
 import {useRouter} from "vue-router/dist/vue-router";
 import Aside from "components/Aside.vue";
 import Footer from "components/Footer.vue";

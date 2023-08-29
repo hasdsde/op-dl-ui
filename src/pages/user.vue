@@ -171,6 +171,11 @@
             </q-item-section>
           </q-item>
 
+          <q-item tag="label" v-ripple>
+            <q-item-section>
+              <q-item-label>关于</q-item-label>
+            </q-item-section>
+          </q-item>
 
         </q-card-actions>
       </q-card>

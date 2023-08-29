@@ -76,7 +76,7 @@ import {ref} from "vue";
 import PoolCard from "components/poolCard.vue";
 import EventCard from "components/versionEventCard.vue";
 import {api} from "boot/axios";
-import {getVersionLeftLine, getVersionLeftTime, getVersionNum, getVersionTime} from "components/version";
+import {getVersionLeftLine, getVersionLeftTime, getVersionNum, getVersionTime} from "src/ts/version";
 import {useQuasar} from "quasar";
 
 const $q = useQuasar()

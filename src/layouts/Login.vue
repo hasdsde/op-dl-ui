@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {api} from 'boot/axios'
-import {CommonFail, CommonSuccess, CommonWarn} from 'components/commonResults'
+import {CommonFail, CommonSuccess, CommonWarn} from 'src/ts/commonResults'
 import {useRouter} from 'vue-router'
 
 

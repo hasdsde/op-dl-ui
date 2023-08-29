@@ -21,7 +21,7 @@
 <script setup>
 import {ref, watch} from 'vue'
 import {useRouter} from "vue-router/dist/vue-router";
-import {menu} from "src/components/models";
+import {menu} from "src/ts/models";
 
 
 const props = defineProps(['currentMenu'])

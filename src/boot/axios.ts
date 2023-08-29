@@ -1,9 +1,9 @@
 import {boot} from 'quasar/wrappers';
 import axios, {AxiosInstance} from 'axios';
 // @ts-ignore
-import {allNull} from "components/utils";
+import {allNull} from "src/ts/utils";
 // @ts-ignore why?
-import {CommonFail} from 'components/commonResults';
+import {CommonFail} from 'src/ts/commonResults';
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {

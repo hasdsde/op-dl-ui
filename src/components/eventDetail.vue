@@ -33,8 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import {DialogConfirm} from "components/commonResults";
-import {getEventLeftTime} from "./version";
+import {DialogConfirm} from "src/ts/commonResults";
+import {getEventLeftTime} from "../ts/version";
 
 var detail = defineProps(['detail']);
 
