@@ -11,7 +11,7 @@
       <!--  用户设置    -->
       <q-card class="q-mt-md" v-for="configs in configList">
         <q-card-section>
-          <div class="text-h6 op-font">{{ configs.label }}</div>
+          <div class="text-h6 op-font">{{ configs.label + configs.name }}</div>
         </q-card-section>
 
         <q-separator/>
@@ -20,7 +20,7 @@
 
           <q-item tag="label" v-ripple v-for="config in configs.children">
             <q-item-section>
-              <q-item-label>{{ config.label }}</q-item-label>
+              <q-item-label>{{ config.label }}({{ config.name }})</q-item-label>
               <q-item-label caption>{{ config.info }}</q-item-label>
             </q-item-section>
             <q-item-section avatar v-if="config.status!=null">

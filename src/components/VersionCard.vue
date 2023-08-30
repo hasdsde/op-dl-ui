@@ -20,16 +20,13 @@
               <q-list>
                 <q-item clickable>
                   <q-toggle
-                      v-model="autoExpanded"
+                      v-model="versionCardExpanded"
                       checked-icon="check"
                       color="green"
                       unchecked-icon="clear"
                       label="自动展开"
-                      @click="handleExpand"
+                      @update:model-value="handleExpand"
                   />
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>查看</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -40,7 +37,7 @@
 
     <q-card-actions class="q-pt-none">
       <div style="width: 100%">
-        <q-expansion-item icon="explore" v-model="versionExpanded">
+        <q-expansion-item icon="explore" v-model="versionCardExpanded">
           <template v-slot:header>
             <q-item-section avatar>
               <q-avatar icon="explore" color="black" text-color="white"/>
@@ -78,10 +75,10 @@ import EventCard from "components/versionEventCard.vue";
 import {api} from "boot/axios";
 import {getVersionLeftLine, getVersionLeftTime, getVersionNum, getVersionTime} from "src/ts/version";
 import {useQuasar} from "quasar";
+import {getConfig, updateConfig} from "src/ts/config";
 
 const $q = useQuasar()
-const versionExpanded: any = ref(false)//版本自动展开
-const autoExpanded: any = ref(false)//自动展开
+const versionCardExpanded: any = ref(false)//版本自动展开
 let version: any = ref({}) //版本信息
 let versionTime: any = ref("Undefined")//版本开始和结束时间
 let versionNum: any = ref("undefined")//版本号
@@ -93,10 +90,10 @@ let versionEvents: any = ref([])
 loadPage()
 
 function loadPage() {
-  checkExpand()//展开设置
   getCurrentVersion()//获取当前版本信息
   getPools()
   getEvents()
+  versionCardExpanded.value = getConfig("version", "autoExpandVersionCard")
 }
 
 
@@ -129,26 +126,9 @@ function getEvents() {
   })
 }
 
-//自动展开判断
-function checkExpand() {
-  if (localStorage.getItem("cardAutoExpanded") != "1") {
-    autoExpanded.value = false
-    localStorage.setItem("cardAutoExpanded", "0")
-  } else {
-    autoExpanded.value = true
-    versionExpanded.value = true
-  }
-}
-
-
 //自动展开
 function handleExpand() {
-  if (autoExpanded.value) {
-    localStorage.setItem("cardAutoExpanded", "1");
-    versionExpanded.value = true
-  } else {
-    localStorage.setItem("cardAutoExpanded", "0");
-  }
+  updateConfig("version", "autoExpandVersionCard", versionCardExpanded.value)
 }
 </script>
 <style scoped>

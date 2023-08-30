@@ -1,3 +1,5 @@
+import {CommonSuccess} from "src/ts/commonResults";
+
 interface configChildren {
     name: string
     label: string,
@@ -102,10 +104,14 @@ export const configColumns: config[] = [
     },
 ]
 
+//初始化配置
 export function initConfig() {
     localStorage.setItem("config", JSON.stringify(configColumns))
+    CommonSuccess("配置已重新加载")
+    //新手指引
 }
 
+//加载全部配置
 export function loadConfig() {
     var item: any = localStorage.getItem("config")
     if (item == null) {
@@ -115,6 +121,23 @@ export function loadConfig() {
     return JSON.parse(item)
 }
 
+//加载某个配置
+export function getConfig(sort: string, name: string): null | Boolean {
+    let result = null;
+    const config: config[] = loadConfig();
+    config.forEach((item: config) => {
+        if (item.name == sort) {
+            item.children.forEach((child: configChildren) => {
+                if (child.name == name) {
+                    result = child.status
+                }
+            })
+        }
+    })
+    return result
+}
+
+// 更新配置
 export function updateConfig(sort: string, name: string, status: boolean) {
     var config: config[] = loadConfig();
     config.forEach((item: config) => {
@@ -127,4 +150,5 @@ export function updateConfig(sort: string, name: string, status: boolean) {
         }
     })
     localStorage.setItem("config", JSON.stringify(config))
+    CommonSuccess("配置已更新")
 }

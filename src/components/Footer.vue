@@ -15,7 +15,6 @@ import {menu} from "src/ts/models";
 
 const tab = ref()
 const props = defineProps(['currentMenu'])
-console.log(props.currentMenu)
 let menus = ref(menu)//从其他文件获取的菜单数据
 let link = ref()
 let $router = useRouter()
