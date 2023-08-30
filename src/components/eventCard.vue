@@ -80,7 +80,7 @@ loadConfig()
 
 
 function loadConfig() {
-  eventExpand.value = getConfig("version", "autoExpandEventCard")
+  eventExpand.value = getConfig("event", "autoExpandEventCard")
   console.log(eventExpand.value)
 }
 
