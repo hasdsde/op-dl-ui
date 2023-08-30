@@ -1,4 +1,4 @@
-import {CommonSuccess} from "src/ts/commonResults";
+import {CommonSuccess, DialogConfirm} from "src/ts/commonResults";
 
 interface configChildren {
     name: string
@@ -96,9 +96,17 @@ export const configColumns: config[] = [
     {
         name: "system", label: "系统设置", children: [
             {name: "clearData", label: "清除数据", info: "清除登录以外的所有数据", status: null, handler: null},
-            {name: "initConfig", label: "恢复默认设置", info: "删除配置信息", status: null, handler: null},
+            {
+                name: "initConfig", label: "恢复默认设置", info: "删除配置信息", status: null, handler: () => {
+                    DialogConfirm("确定要恢复默认配置吗?").onOk(() => {
+                        initConfig()
+                        location.reload()
+                    })
+                }
+            },
             {name: "changeTheme", label: "更换主题色", info: "", status: null, handler: null},
             {name: "randomTheme", label: "随机主题色", info: "每次打开随机主题色", status: false, handler: null},
+            {name: "debug", label: "DEBUG模式", info: "方便开发排除错误", status: false, handler: null},
             {name: "about", label: "关于", info: "", status: null, handler: null},
         ]
     },
@@ -137,6 +145,20 @@ export function getConfig(sort: string, name: string): null | Boolean {
     return result
 }
 
+//运行方法
+export function runConfigHandler(sort: string, name: string) {
+    configColumns.forEach((item: config) => {
+        if (item.name == sort) {
+            item.children.forEach((child: configChildren) => {
+                if (child.name == name) {
+                    // @ts-ignore
+                    child.handler()
+                }
+            })
+        }
+    })
+}
+
 // 更新配置
 export function updateConfig(sort: string, name: string, status: boolean) {
     var config: config[] = loadConfig();
@@ -151,4 +173,10 @@ export function updateConfig(sort: string, name: string, status: boolean) {
     })
     localStorage.setItem("config", JSON.stringify(config))
     CommonSuccess("配置已更新")
+}
+
+export function debugLog(o: any) {
+    if (getConfig("system", "debug")) {
+        console.log(o)
+    }
 }

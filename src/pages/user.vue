@@ -8,7 +8,6 @@
     </q-banner>
 
     <div>
-      <!--  用户设置    -->
       <q-card class="q-mt-md" v-for="configs in configList">
         <q-card-section>
           <div class="text-h6 op-font">{{ configs.label + configs.name }}</div>
@@ -18,7 +17,8 @@
 
         <q-card-actions vertical class="op-font">
 
-          <q-item tag="label" v-ripple v-for="config in configs.children">
+          <q-item tag="label" v-ripple v-for="config in configs.children"
+                  @click="runConfigHandler(configs.name,config.name)">
             <q-item-section>
               <q-item-label>{{ config.label }}({{ config.name }})</q-item-label>
               <q-item-label caption>{{ config.info }}</q-item-label>
@@ -40,9 +40,11 @@
 
 <script lang="ts" setup>
 import {ref} from "vue";
-import {loadConfig, updateConfig} from "src/ts/config";
+import {loadConfig, runConfigHandler, updateConfig} from "src/ts/config";
 
 let configList = ref(loadConfig())
+
+
 </script>
 
 <style scoped>
