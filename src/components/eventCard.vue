@@ -25,11 +25,12 @@
               <q-list>
                 <q-item clickable>
                   <q-toggle
-                      v-model="autoExpanded"
+                      v-model="eventExpand"
                       checked-icon="check"
                       color="green"
                       unchecked-icon="clear"
                       label="自动展开"
+                      @update:model-value="handleEventExpand"
                   />
                 </q-item>
                 <q-item clickable>
@@ -44,7 +45,7 @@
 
     <q-card-actions class="q-pt-none">
       <div style="width: 100%">
-        <q-expansion-item icon="explore" v-model="versionExpanded">
+        <q-expansion-item icon="explore" v-model="eventExpand">
           <template v-slot:header>
             <q-item-section avatar>
               <q-avatar icon="explore" color="black" text-color="white"/>
@@ -71,11 +72,21 @@
 import EventDetail from "components/eventDetail.vue";
 import {ref} from "vue";
 import {getEventLeftTime} from "../ts/version";
+import {getConfig, updateConfig} from "src/ts/config";
 
 const event: any = defineProps(['event']);
-const versionExpanded = ref(false)
-const autoExpanded = ref(false)
+const eventExpand: any = ref(false)
+loadConfig()
 
+
+function loadConfig() {
+  eventExpand.value = getConfig("version", "autoExpandEventCard")
+  console.log(eventExpand.value)
+}
+
+function handleEventExpand() {
+  updateConfig("event", "autoExpandEventCard", eventExpand.value)
+}
 </script>
 <style scoped>
 

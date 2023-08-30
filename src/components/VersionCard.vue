@@ -25,7 +25,7 @@
                       color="green"
                       unchecked-icon="clear"
                       label="自动展开"
-                      @update:model-value="handleExpand"
+                      @update:model-value="handleVersionExpand"
                   />
                 </q-item>
               </q-list>
@@ -90,9 +90,14 @@ let versionEvents: any = ref([])
 loadPage()
 
 function loadPage() {
-  getCurrentVersion()//获取当前版本信息
+  loadConfig()
+  getCurrentVersion()
   getPools()
   getEvents()
+}
+
+//载入配置
+function loadConfig() {
   versionCardExpanded.value = getConfig("version", "autoExpandVersionCard")
 }
 
@@ -127,9 +132,11 @@ function getEvents() {
 }
 
 //自动展开
-function handleExpand() {
+function handleVersionExpand() {
   updateConfig("version", "autoExpandVersionCard", versionCardExpanded.value)
 }
+
+
 </script>
 <style scoped>
 
