@@ -1,4 +1,6 @@
-import {CommonSuccess, DialogConfirm} from "src/ts/commonResults";
+import {CommonSuccess} from "src/ts/commonResults";
+import {updateToken} from "src/ts/userConfig";
+import {resetConfig} from "src/ts/systemConfig";
 
 interface configChildren {
     name: string
@@ -23,10 +25,11 @@ export const configColumns: config[] = [
                 label: "更新Token",
                 info: "Token使用次数有限，需要及时刷新",
                 status: null,
-                handler: null
+                handler: updateToken
             },
-            {name: "updatePassword", label: "修改密码", info: "", status: null, handler: null},
-            {name: "logout", label: "退出登录", info: "", status: null, handler: null},
+            {name: "login", label: "登录", info: "登录到远程账户，同步用户数据", status: null, handler: null},
+            // {name: "updatePassword", label: "修改密码", info: "", status: null, handler: null},
+            // {name: "logout", label: "退出登录", info: "", status: null, handler: null},
         ]
     },
     {
@@ -96,14 +99,7 @@ export const configColumns: config[] = [
     {
         name: "system", label: "系统设置", children: [
             {name: "clearData", label: "清除数据", info: "清除登录以外的所有数据", status: null, handler: null},
-            {
-                name: "initConfig", label: "恢复默认设置", info: "删除配置信息", status: null, handler: () => {
-                    DialogConfirm("确定要恢复默认配置吗?").onOk(() => {
-                        initConfig()
-                        location.reload()
-                    })
-                }
-            },
+            {name: "initConfig", label: "恢复默认设置", info: "删除配置信息", status: null, handler: resetConfig},
             {name: "changeTheme", label: "更换主题色", info: "", status: null, handler: null},
             {name: "randomTheme", label: "随机主题色", info: "每次打开随机主题色", status: false, handler: null},
             {name: "debug", label: "DEBUG模式", info: "方便开发排除错误", status: false, handler: null},
@@ -147,6 +143,7 @@ export function getConfig(sort: string, name: string): null | Boolean {
 
 //运行方法
 export function runConfigHandler(sort: string, name: string) {
+    //并不能直接调用这个函数
     configColumns.forEach((item: config) => {
         if (item.name == sort) {
             item.children.forEach((child: configChildren) => {
@@ -175,8 +172,4 @@ export function updateConfig(sort: string, name: string, status: boolean) {
     CommonSuccess("配置已更新")
 }
 
-export function debugLog(o: any) {
-    if (getConfig("system", "debug")) {
-        console.log(o)
-    }
-}
+

@@ -88,6 +88,20 @@ export function DialogConfirm(msg: string): DialogChainObject {
     })
 }
 
+//输入框
+export function DialogPrompt(msg: string): DialogChainObject {
+    return Dialog.create({
+        title: '输入',
+        message: msg,
+        prompt: {
+            model: '',
+            type: 'text'
+        },
+        cancel: true,
+        persistent: true
+    })
+}
+
 export function building() {
     CommonWarn("正在建设中")
 }

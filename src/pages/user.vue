@@ -17,12 +17,16 @@
 
         <q-card-actions vertical class="op-font">
 
+          <!--     运行函数方法     -->
           <q-item tag="label" v-ripple v-for="config in configs.children"
                   @click="runConfigHandler(configs.name,config.name)">
+
             <q-item-section>
               <q-item-label>{{ config.label }}({{ config.name }})</q-item-label>
               <q-item-label caption>{{ config.info }}</q-item-label>
             </q-item-section>
+
+            <!--      开关      -->
             <q-item-section avatar v-if="config.status!=null">
               <q-toggle color="brown" v-model="config.status"
                         @update:model-value="updateConfig(configs.name,config.name,config.status)" val="friend"/>
