@@ -1,5 +1,5 @@
 import {CommonSuccess} from "src/ts/commonResults";
-import {updateToken} from "src/ts/userConfig";
+import {updateToken, userLogin} from "src/ts/userConfig";
 import {resetConfig} from "src/ts/systemConfig";
 
 interface configChildren {
@@ -27,13 +27,20 @@ export const configColumns: config[] = [
                 status: null,
                 handler: updateToken
             },
-            {name: "login", label: "登录", info: "登录到远程账户，同步用户数据", status: null, handler: null},
+            {name: "login", label: "登录", info: "登录到远程账户，同步用户数据", status: null, handler: userLogin},
             // {name: "updatePassword", label: "修改密码", info: "", status: null, handler: null},
             // {name: "logout", label: "退出登录", info: "", status: null, handler: null},
         ]
     },
     {
         name: "version", label: "版本设置", children: [
+            {
+                name: "versionEventCard",
+                label: "显示版本信息",
+                info: "在首页版本中显示版本信息",
+                status: true,
+                handler: null
+            },
             {
                 name: "autoExpandVersionCard",
                 label: "自动展开版本信息",
@@ -49,8 +56,8 @@ export const configColumns: config[] = [
                 handler: null
             },
             {
-                name: "currentPoolCard",
-                label: "展示当前卡池信息",
+                name: "poolCard",
+                label: "显示卡池",
                 info: "在首页版本中展示当前卡池信息",
                 status: true,
                 handler: null
@@ -58,7 +65,7 @@ export const configColumns: config[] = [
             {
                 name: "notStartPoolCard",
                 label: "展示未开始卡池信息",
-                info: "在首页版本中展示未开始卡池信息",
+                info: "在首页版本中展示未开始卡池信息，需开启展示卡池",
                 status: true,
                 handler: null
             },

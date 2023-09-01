@@ -18,7 +18,7 @@
         </q-item-section>
         <q-item-section side top>
           <q-item-label caption class="text-right">
-            {{ getVersionLeftTime(pool.endTime) }}
+            {{ getEventLeftTime(pool.startTime, pool.endTime) }}
           </q-item-label>
           <q-linear-progress :value="getVersionLeftLine(pool.startTime,pool.endTime)" color="primary"
                              size="7px"
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import {ref} from "vue";
-import {getVersionLeftLine, getVersionLeftTime} from "src/ts/version";
+import {getEventLeftTime, getVersionLeftLine} from "src/ts/version";
 
 const props: any = defineProps(['pool'])
 const pool: any = ref(props.pool)

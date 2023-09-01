@@ -68,13 +68,11 @@ export function CommonInfo(msg: string) {
 
 
 // 对话框
-export function DialogAlert(message: string) {
-    Dialog.create({
+export function DialogAlert(message: string): DialogChainObject {
+    return Dialog.create({
         title: '消息',
         message: message,
         persistent: true
-    }).onOk(() => {
-        CommonWarn('测试')
     })
 }
 

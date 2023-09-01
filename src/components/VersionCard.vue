@@ -119,16 +119,26 @@ function getCurrentVersion() {
   })
 }
 
+//卡池信息
 function getPools() {
-  api.get("/current-pool-with-tag").then((res: any) => {
-    pools.value = res.data.Data
-  })
+  //读取配置
+  let time = 0
+  let notStartPoolCard = getConfig("version", "notStartPoolCard");
+  notStartPoolCard ? time = 1 : ''
+
+  if (getConfig("version", "poolCard")) {
+    api.get("/current-pool-with-tag?time=" + time).then((res: any) => {
+      pools.value = res.data.Data
+    });
+  }
 }
 
 function getEvents() {
-  api.get("/current-version-event-with-tag").then((res: any) => {
-    versionEvents.value = res.data.Data
-  })
+  if (getConfig("version", "versionEventCard")) {
+    api.get("/current-version-event-with-tag").then((res: any) => {
+      versionEvents.value = res.data.Data
+    });
+  }
 }
 
 //自动展开

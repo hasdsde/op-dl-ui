@@ -30,8 +30,13 @@ export function getEventLeftTime(startTime: any, endTime: any): string {
 
     const diffDay = Math.floor(hour / 24);
     const diffHour = Math.floor(hour % 24);
+    
+    //如果没开始
     if (date.getDateDiff(startTime, Date.now(), "hours") > 0) {
-        return "未开始(" + diffHour + "时)"
+        hour = date.getDateDiff(startTime, Date.now(), "hours");
+        const diffDay = Math.floor(hour / 24);
+        const diffHour = Math.floor(hour % 24);
+        return "未开始(" + diffDay + "天" + diffHour + "时)"
     }
     if (hour < 0) {
         return "已结束";
